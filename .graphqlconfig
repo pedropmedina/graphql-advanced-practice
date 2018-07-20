@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "project": {
+      "schemaPath": "./src/api/project/project.graphql"
+    },
+    "search": {
+      "schemaPath": "./src/api/search/search.graphql"
+    },
+    "task": {
+      "schemaPath": "./src/api/task/task.graphql"
+    }
+  }
+}

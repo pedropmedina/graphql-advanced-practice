@@ -1,0 +1,117 @@
+type Project {
+	id: ID!
+	name: String!
+	description: String!
+	createdAt: String!
+	updatedAt: String!
+	tasks: [Task]!
+}
+
+input NewProjectInput {
+	name: String!
+	description: String
+}
+
+input ProjectInput {
+	name: String
+	id: ID
+}
+
+type Query {
+	project(input: ProjectInput!): Project!
+	projects: [Project]!
+}
+
+type Mutation {
+	newProject(input: NewProjectInput): Project!
+}
+
+# ------------------------------------
+# Fragments is use in the client side
+# They are a group of predefined fields that can
+# be used multiple times avoiding repetition
+# We can think of it as an object with properties
+# that can be used to query the same thing multiple times
+
+# fragment projectFields on Project {
+# 	id
+# 	name
+# 	description
+# 	tasks
+# }
+
+# query {
+# 	projectOne: oneProject(id: 3) {
+# 		... projectFields
+# 	}
+# 	projectTwo: oneProject(id: 3) {
+# 		... projectFields
+# 	}
+# }
+
+# ------------------------------------
+# Enum is a range of values that can be assigned to a field
+# That field must only resolve to one of the values in the enum
+# The convention is to write then all cap case
+
+# enum ProjectTypes {
+# 	HOUSE
+# 	OFFICE
+# 	WORK
+# 	PLAY
+# }
+
+# type Project {
+# 	id: ID!
+# 	name: String!
+# 	description: String!
+# 	type: ProjectTypes!
+# }
+
+# ------------------------------------
+# Interfaces allows to group types together so that they
+# can represent a selection of one type based on the condition
+# enum AnimalType {
+# 	DOG
+# 	CAT
+# }
+
+# interface Animal {
+# 	type: AnimalType!
+# }
+
+# # Both implementations must share at least one field from
+# # the Animal interface
+# type Dog implements Animal {
+# 	type: AnimalType!
+# 	personality: String!
+# }
+
+# type Cat implements Animal {
+# 	type: AnimalType!
+# 	lives: Int!
+# }
+
+# type Query {
+# 	animal: Animal!
+# }
+
+# # In the resolvers file:
+# Query: {
+# 	animal() {
+# 		return {
+# 			type: 'CAT',
+# 			lives: 9,
+# 			personality: 'good dog'
+# 		}
+# 	}
+# }
+# Animal: {
+# 	__resolveType(animal) {
+# 		if (animal.type === 'CAT') {
+# 			return 'CAT'
+# 		} else {
+# 			return 'DOG'
+# 		}
+# 	}
+# }
